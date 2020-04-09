@@ -34,6 +34,21 @@ def echo(print_back, *, reverse_string):
 >> dlrow olleh
 ```
 
+Default Values
+
+Default values can be provided in two ways, either with the 'default' value in the add_argument kwargs provided by a type annotation, or by the default value of the parameter
+
+```python
+@app.command
+def echo(print_back, *, print_back2="this will also be printed"):
+    print(print_back, print_back2)
+```
+
+```bash
+./python app.py echo "hello world"
+>> hello world this will also be printed
+```
+
 Type Annotation
 
 You can provide either a dictionary or a callable as the type annotation.
