@@ -131,6 +131,53 @@ def echo(print_back: List(Integer, nargs=2)):
 >> [1, 2]
 ```
 
+Subcommands and Modules
+
+Subcommand groups can be added using the group function
+
+```python
+string_group = app.group('string')
+
+@string_group.command
+def echo(print_back):
+    print(print_back)
+```
+
+```bash
+./python app.py string echo "hello world"
+>> hello world
+```
+
+The functions of a module can be added.
+
+```python string_functions.py
+def echo(print_back):
+    print(print_back)
+```
+
+```python
+import string_functions
+app.module(string_functions)
+```
+
+```bash
+./python app.py echo "hello world"
+>> hello world
+```
+
+These can be combined to use a module as a sub group
+
+```python
+import string_functions
+app.group(string_functions)
+```
+
+```bash
+./python app.py string_functions echo "hello world"
+>> hello world
+```
+
+
 Documentation
 
 The WithHelp annotation will add a help string to each parameter. Annotations can automatically add help as you go and WithHelp will retain the current help text. For example, List(Integer, nargs=2) will add a description of the type to the help text.
