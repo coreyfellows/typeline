@@ -15,7 +15,6 @@ class Typeline(object):
         if hasattr(args, '_typeline_func'):
             args._typeline_func(**kwargs)
         else:
-            import pdb; pdb.set_trace()
             parser.print_help()
 
     def generate_parser(self, parser):
@@ -28,11 +27,11 @@ class Typeline(object):
                 cmd_name = p
                 if param.kind == param.KEYWORD_ONLY:
                     cmd_name = f"--{cmd_name}"
-                cmd_name = cmd_name.replace("_", "-")
+                    cmd_name = cmd_name.replace("_", "-")
                 if param.annotation == param.empty:
                     cmd_parser.add_argument(cmd_name)
                 else:
-                    options = param.annotation()
+                    options = param.annotation() if callable(param.annotation) else param.annotation
                     if param.default != param.empty:
                         options['default'] = param.default
                     cmd_parser.add_argument(cmd_name, **options)
